@@ -13,6 +13,7 @@ $ssn = mysqli_real_escape_string($link, $_REQUEST['ssn']);
 $pic = mysqli_real_escape_string($link, $_REQUEST['pic']);
 
 $sql = "INSERT INTO sustenance (Name, Email, Username, Password, dob, ssn, pic) VALUES ('$name', '$email', '$user', '$pass', '$age', '$ssn', '$pic');";
+if(isset($_POST['submit'])) {
 if(mysqli_query($link, $sql))
 {
     header("location: login.html");
@@ -20,6 +21,7 @@ if(mysqli_query($link, $sql))
 else
 {
     echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
+}
 }
 mysqli_close($link);
 ?>
@@ -60,7 +62,7 @@ mysqli_close($link);
             	<input type="text" class="input-field" placeholder="John Doe" name = "user" autocomplete="username" required />
             	
                 <input id="pass" name = "pass" type="password" class="input-field" placeholder="Enter Password" autocomplete="new-password" required />
-            	<input type="checkbox" class="check-box" onclick="showPass()"/><span>Show Password</span>
+            	<input type="checkbox" class="check-box" onclick="showPass()"/>Show Password
             	<input type="date" class="input-field" name = "dob" autocomplete="dob" required />
             	<input type="text" class="input-field" placeholder="1123 2322 3332" name = "ssn" autocomplete="ssn" required />
             	<input type = "file" name = "pic" placeholder = "pic">
