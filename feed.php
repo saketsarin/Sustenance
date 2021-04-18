@@ -34,6 +34,14 @@ if(isset($_POST['pass_ch'])) {
         echo "Password Changed Successfully!";
     }
 }
+if(isset($_POST['delete'])) {
+	$q = "DELETE FROM sustenance where Username = '$username';";
+    if(mysqli_query($link, $q))
+    {
+        echo "Your account has been deleted. We're sorry to see you go! :(";
+    	header("location: index.php");
+    }
+}
 
 echo '
 <!DOCTYPE html>
@@ -79,8 +87,8 @@ echo '
                 <input type="submit" value="Update Password" class="change" name = "pass_ch">
             </form>
             <div class="buttons">
-                <button style="background-color:red;" onclick="deleteAccount()" class="change">Delete Account</button>
-                <button onclick="logOut()" class="change">Log Out</button>
+                <form method = "post"><button style="background-color:red;" onclick="deleteAccount()" class="change" name = "delete">Delete Account</button></form>
+                <a href="logout.php" class="change">Log Out</a>
             </div>
         </div>
 
