@@ -1,7 +1,7 @@
 <?php
 include('session.php');
 
-$link = mysqli_connect("localhost", "troth782_messeng", "W=Fscostheta", "troth782_messenger");
+$link = mysqli_connect("localhost", "u630298647_bruh", "Stonks@404", "u630298647_tangled");
 $msgstore = "SELECT * FROM messages;";
 $msg = mysqli_real_escape_string($link, $_REQUEST['msg']);
 $username = $_SESSION['login_user'];
@@ -9,17 +9,21 @@ $name = $_SESSION['name'];
 $dob = $_SESSION['dob'];
 $email = $_SESSION['email'];
 $pic = $_SESSION['pic'];
-if(isset($_POST['subchat']))
-{
-    $message = "INSERT INTO messages (Name, Message) VALUES ('$user_check','$init');";
-    if(mysqli_query($link, $message))
+if(isset($_POST['user_ch'])) {
+	$new_user = mysqli_real_escape_string($link, $_REQUEST['new_user']);
+	$q = "UPDATE sustenance SET Username = '$new_user' where Username = '$username';";
+    if(mysqli_query($link, $q))
     {
-        header("location: profile.php#msg");
+        $_SESSION['login_user'] = $new_user;
     }
 }
-$chatres = $connection->query($msgstore);
-if ( isset( $_POST['submit'] ) ) {
-    header("location: test.php");
+if(isset($_POST['user_ch'])) {
+	$new_user = mysqli_real_escape_string($link, $_REQUEST['new_user']);
+	$q = "UPDATE sustenance SET Username = '$new_user' where Username = '$username';";
+    if(mysqli_query($link, $q))
+    {
+        $_SESSION['login_user'] = $new_user;
+    }
 }
 
 echo '
@@ -56,9 +60,9 @@ echo '
             <!-- display username -->
             <span id="currentUsername">Username: ' .$username.'</span>
             <form id="changeUsername" method="post">
-                <input id="username" class="input-field" type="text" name="username" placeholder="New Username">
+                <input id="username" class="input-field" type="text" name="new_user" placeholder="New Username">
                 <br/>
-                <input type="submit" value="Update Username" class="change">
+                <input type="submit" value="Update Username" class="change" name = "user_ch">
             </form>
             <form id="changePassword" method="post">
                 <input id="password" class="input-field" type="password" name="password" placeholder="New Password">
