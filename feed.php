@@ -157,10 +157,17 @@ $result = mysqli_query($link, $feats);
 
 if (mysqli_num_rows($result) > 0) {
   while($row = mysqli_fetch_assoc($result)) {
+  $id = $row['id'];
     echo "By: " . $row["username"]. " <br>Time: " . $row["time"]. "<br>Efforts:" . $row["claps"]. "<br>";
   	echo ' <video width="320" height="240" controls>
   <source src="feats/'.$row['path'].'">
-</video> ';
+</video> <form method = "post"><button name = '.$id.'>Effort +</button></form><br>';
+  if(isset($_POST["$id"])) {
+  		$sql_2 = "UPDATE feats set claps = claps + 1 where id = $id";
+  		if(mysqli_query($link, $sql_2)) {
+        	echo "Effort Added";
+        }
+  }
   }
 } else {
   echo "0 results";
