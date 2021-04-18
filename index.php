@@ -17,7 +17,6 @@ if(isset($_POST['submit'])) {
 if(mysqli_query($link, $sql))
 {
     echo "done";
-    header("location: login.html");
 } 
 else
 {

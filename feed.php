@@ -26,6 +26,15 @@ if(isset($_POST['user_ch'])) {
     }
 }
 
+if(isset($_POST['pass_ch'])) {
+	$new_pass = mysqli_real_escape_string($link, $_REQUEST['new_pass']);
+	$q = "UPDATE sustenance SET Password = '$new_pass' where Username = '$username';";
+    if(mysqli_query($link, $q))
+    {
+        echo "Password Changed Successfully!";
+    }
+}
+
 echo '
 <!DOCTYPE html>
 <html lang="en">
@@ -65,9 +74,9 @@ echo '
                 <input type="submit" value="Update Username" class="change" name = "user_ch">
             </form>
             <form id="changePassword" method="post">
-                <input id="password" class="input-field" type="password" name="password" placeholder="New Password">
+                <input id="password" class="input-field" type="password" name="new_pass" placeholder="New Password">
                 <br/>
-                <input type="submit" value="Update Password" class="change">
+                <input type="submit" value="Update Password" class="change" name = "pass_ch">
             </form>
             <div class="buttons">
                 <button style="background-color:red;" onclick="deleteAccount()" class="change">Delete Account</button>
