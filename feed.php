@@ -2,8 +2,7 @@
 include('session.php');
 
 $link = mysqli_connect("localhost", "u630298647_bruh", "Stonks@404", "u630298647_tangled");
-$msgstore = "SELECT * FROM messages;";
-$msg = mysqli_real_escape_string($link, $_REQUEST['msg']);
+
 $username = $_SESSION['login_user'];
 $name = $_SESSION['name'];
 $dob = $_SESSION['dob'];
@@ -40,6 +39,50 @@ if(isset($_POST['delete'])) {
     {
         echo "Your account has been deleted. We're sorry to see you go! :(";
     	header("location: index.php");
+    }
+}
+if(isset($_POST['submit2'])) {
+	$currentDirectory = getcwd();
+    $uploadDirectory = "/feats/";
+
+    $errors = []; // Store errors here
+
+    $fileExtensionsAllowed = ['mp4','mp3','vid']; // These will be the only file extensions allowed 
+
+    $fileName = $_FILES['the_file']['name'];
+    $fileSize = $_FILES['the_file']['size'];
+    $fileTmpName  = $_FILES['the_file']['tmp_name'];
+    $fileType = $_FILES['the_file']['type'];
+    $fileExtension = strtolower(end(explode('.',$fileName)));
+
+    $uploadPath = $currentDirectory . $uploadDirectory . basename($fileName); 
+
+    if (isset($_POST['submit2'])) {
+
+      if (! in_array($fileExtension,$fileExtensionsAllowed)) {
+        $errors[] = "This file extension is not allowed. Please upload a valid file.";
+      }
+
+      if ($fileSize > 400000000) {
+        $errors[] = "File exceeds maximum size (400MB)";
+      }
+
+      if (empty($errors)) {
+        $didUpload = move_uploaded_file($fileTmpName, $uploadPath);
+
+        if ($didUpload) {
+        	$q = "Insert into feats (username, path, claps) values ('$username', '$fileName', 0);";
+        if(mysqli_query($link, $q)) { echo "done"; }
+          echo "The file " . basename($fileName) . " has been uploaded";
+        } else {
+          echo "An error occurred. Please contact the administrator.";
+        }
+      } else {
+        foreach ($errors as $error) {
+          echo $error . "These are the errors" . "\n";
+        }
+      }
+
     }
 }
 
@@ -103,8 +146,26 @@ echo '
             </span>
         </button>
         <h1>Sustenance Feed</h1>
-        <div id="feed">
-            INSERT REELS BELOW
+        <form method="post" enctype="multipart/form-data">
+        Upload a Feat:
+        <input type="file" name="the_file" id="fileToUpload">
+        <input type="submit" name="submit2" value="Start Upload">
+    	</form>
+        <div id="feed">';
+$feats = "SELECT * FROM feats;";
+$result = mysqli_query($link, $feats);
+
+if (mysqli_num_rows($result) > 0) {
+  while($row = mysqli_fetch_assoc($result)) {
+    echo "By: " . $row["username"]. " <br>Time: " . $row["time"]. "<br>Efforts:" . $row["claps"]. "<br>";
+  	echo ' <video width="320" height="240" controls>
+  <source src="feats/'.$row['path'].'">
+</video> ';
+  }
+} else {
+  echo "0 results";
+}
+            echo '
         </div>
     </div>
 
