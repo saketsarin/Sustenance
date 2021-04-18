@@ -1,3 +1,28 @@
+<?php
+include('session.php');
+
+$link = mysqli_connect("localhost", "troth782_messeng", "W=Fscostheta", "troth782_messenger");
+$msgstore = "SELECT * FROM messages;";
+$msg = mysqli_real_escape_string($link, $_REQUEST['msg']);
+$username = $_SESSION['login_user'];
+$name = $_SESSION['name'];
+$dob = $_SESSION['dob'];
+$email = $_SESSION['email'];
+$pic = $_SESSION['pic'];
+if(isset($_POST['subchat']))
+{
+    $message = "INSERT INTO messages (Name, Message) VALUES ('$user_check','$init');";
+    if(mysqli_query($link, $message))
+    {
+        header("location: profile.php#msg");
+    }
+}
+$chatres = $connection->query($msgstore);
+if ( isset( $_POST['submit'] ) ) {
+    header("location: test.php");
+}
+
+echo '
 <!DOCTYPE html>
 <html lang="en">
 
@@ -18,27 +43,27 @@
         <div class="settings">
             <!-- TODO -->
             <!-- display profile pic -->
-            <img src="images/Sustenance.png" class="profile-pic" />
+            <img src="images/'.$pic.'" class="profile-pic" />
             <form style="margin: 8px;" id="changePic" method="post">
                 <input type = "file" name = "pic" placeholder = "pic">
             </form>
             <!-- display name -->
-            <span id="name">Name: John Doe</span>
+            <span id="name">Name: '.$name.'</span>
             <!-- display dob -->
-            <span id="dob">Birthdate: 06/09/1969</span>
+            <span id="dob">Birthdate: '.$dob.'</span>
             <!-- display email -->
-            <span id="currentEmail">Email: johndoe@email.com</span>
+            <span id="currentEmail">Email: '.$email.'</span>
             <!-- display username -->
-            <span id="currentUsername">Username: johndoe</span>
+            <span id="currentUsername">Username: ' .$username.'</span>
             <form id="changeUsername" method="post">
-                <input id='username' class="input-field" type='text' name='username' placeholder="New Username">
+                <input id="username" class="input-field" type="text" name="username" placeholder="New Username">
                 <br/>
-                <input type='submit' value='Update Username' class="change">
+                <input type="submit" value="Update Username" class="change">
             </form>
             <form id="changePassword" method="post">
-                <input id='password' class="input-field" type='password' name='password' placeholder="New Password">
+                <input id="password" class="input-field" type="password" name="password" placeholder="New Password">
                 <br/>
-                <input type='submit' value='Update Password' class="change">
+                <input type="submit" value="Update Password" class="change">
             </form>
             <div class="buttons">
                 <button style="background-color:red;" onclick="deleteAccount()" class="change">Delete Account</button>
@@ -65,4 +90,5 @@
     <script src="js/feed.js"></script>
 </body>
 
-</html>
+</html>';
+?>
