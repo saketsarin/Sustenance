@@ -150,7 +150,7 @@ echo '
         <form method="post" enctype="multipart/form-data" class="fileUpload">
         Upload a Feat:
         <input type="file" name="the_file" id="fileToUpload">
-        <input type="submit" name="submit2" value="Upload my fleet!">
+        <input type="submit" name="submit2" value="Upload my feat!">
     	</form>
         <div id="feed">';
 $feats = "SELECT * FROM feats;";
