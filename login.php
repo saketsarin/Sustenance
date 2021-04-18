@@ -17,9 +17,7 @@ $sql = "SELECT * FROM sustenance WHERE Username='$x' AND Password='$y'";
 $result = $conn->query($sql);
 if ($result->num_rows > 0) {
     $_SESSION['login_user']=$x;
-    // output data of each row
-    
-    header("location: profile.php");
+    header("location: feed.php");
     while($row = $result->fetch_assoc()) {
         echo "Hey there";
     }
