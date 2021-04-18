@@ -16,6 +16,7 @@ $sql = "INSERT INTO sustenance (Name, Email, Username, Password, dob, ssn, pic) 
 if(isset($_POST['submit'])) {
 if(mysqli_query($link, $sql))
 {
+    echo "done";
     header("location: login.html");
 } 
 else
@@ -48,30 +49,27 @@ mysqli_close($link);
             <div class="icon">
                 <a href="#"><img src="./images/Sustenance.png" alt="logo" width="150px" height="150px"></a>
             </div>
-
-            <form id="login" class="input-group">
-                <input type="text" class="input-field" placeholder="Username" autocomplete="username" required />
-                <input type="password" class="input-field" placeholder="Enter Password" autocomplete="current-password" required />
+            <form id="login" class="input-group" method = "post" action = "login.php">
+                <input type="text" name = "user2" class="input-field" placeholder="Username" autocomplete="username" required />
+                <input type="password" name = "pass2" class="input-field" placeholder="Enter Password" autocomplete="current-password" required />
                 <input type="checkbox" class="check-box" /><span>Remember Password</span>
                 <button type="submit" class="submit-btn">Log In</button>
             </form>
 
             <form id="register" method = "post" action = "index.php" class="input-group">
-                <input type="text" class="input-field" placeholder="John Doe" name = "name" autocomplete="name" required />
+                <input type="text" class="input-field" placeholder="Name" name = "name" autocomplete="name" required />
                 <input type="email" class="input-field" placeholder="Enter Email" name = "email" required />
-            	<input type="text" class="input-field" placeholder="John Doe" name = "user" autocomplete="username" required />
-            	
+            	<input type="text" class="input-field" placeholder="Username" name = "user" autocomplete="username" required />
                 <input id="pass" name = "pass" type="password" class="input-field" placeholder="Enter Password" autocomplete="new-password" required />
             	<input type="checkbox" class="check-box" onclick="showPass()"/>Show Password
             	<input type="date" class="input-field" name = "dob" autocomplete="dob" required />
-            	<input type="text" class="input-field" placeholder="1123 2322 3332" name = "ssn" autocomplete="ssn" required />
+            	<input type="text" class="input-field" placeholder="Social Security Number" name = "ssn" autocomplete="ssn" required />
             	<input type = "file" name = "pic" placeholder = "pic">
-                <button type="submit" class="submit-btn">Register</button>
+                <button type="submit" class="submit-btn" name = "submit">Register</button>
             </form>
         </div>
     </div>
 
     <script src="js/script.js"></script>
 </body>
-
 </html>
