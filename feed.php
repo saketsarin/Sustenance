@@ -146,7 +146,7 @@ echo '
             </span>
         </button>
         <h1>Sustenance Feed</h1>
-        <form method="post" enctype="multipart/form-data">
+        <form method="post" enctype="multipart/form-data" class="fileUpload">
         Upload a Feat:
         <input type="file" name="the_file" id="fileToUpload">
         <input type="submit" name="submit2" value="Start Upload">
