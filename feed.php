@@ -1,7 +1,7 @@
 <?php
 include('session.php');
 
-$link = mysqli_connect("localhost", "u630298647_bruh", "Stonks@404", "u630298647_tangled");
+$link = mysqli_connect(***************);
 
 $username = $_SESSION['login_user'];
 $name = $_SESSION['name'];
